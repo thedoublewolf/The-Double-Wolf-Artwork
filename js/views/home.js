@@ -1,7 +1,10 @@
-function homeTemplate() {
-	return `
-		<h2>Home page</h2>
-	`;
-};
+function homeTemplate(home) {
 
-export defaul homeTemplate;
+	return `
+		<ul class="artwork">
+			<li class="artTitle">${home.title}</li>
+		</ul>
+	`;
+}
+
+export default homeTemplate;

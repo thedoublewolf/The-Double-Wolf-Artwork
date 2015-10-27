@@ -1,6 +1,25 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 'use strict';
 
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
+var APP_ID = '0VR7huIQPagbXx3vyqPROwxpSZgVYW4KvxHpI8Ml';
+var API_KEY = 'LDbcDCCHDGaBtep4EfndEuWHrLXLFccN8HT5cPKR';
+
+_jquery2['default'].ajaxSetup({
+	headers: {
+		'X-Parse-Application-Id': APP_ID,
+		'X-Parse-REST-API-Key': API_KEY
+	}
+});
+
+},{"jquery":8}],2:[function(require,module,exports){
+'use strict';
+
 Object.defineProperty(exports, '__esModule', {
 	value: true
 });
@@ -15,7 +34,6 @@ var _artwork_model = require('./artwork_model');
 
 var _artwork_model2 = _interopRequireDefault(_artwork_model);
 
-// Collection is responsible for loading data and creating a model for each record
 var ArtCollection = _backbone2['default'].Collection.extend({
 	url: 'https://api.parse.com/1/classes/Artwork',
 	model: _artwork_model2['default'],
@@ -27,7 +45,7 @@ var ArtCollection = _backbone2['default'].Collection.extend({
 exports['default'] = ArtCollection;
 module.exports = exports['default'];
 
-},{"./artwork_model":2,"backbone":5}],2:[function(require,module,exports){
+},{"./artwork_model":3,"backbone":7}],3:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -50,28 +68,7 @@ var ArtModel = _backbone2['default'].Model.extend({
 exports['default'] = ArtModel;
 module.exports = exports['default'];
 
-},{"backbone":5}],3:[function(require,module,exports){
-'use strict';
-
-Object.defineProperty(exports, '__esModule', {
-	value: true
-});
-function ArtworkTemplate(art) {
-
-	var sale = art.sold;
-	if (sale === true) {
-		sale = 'Sold';
-	} else {
-		sale = 'Available for Purchase';
-	}
-
-	return '\n\t\t<ul class="artwork">\n\t\t\t<li class="artTitle">' + art.title + '</li>\n\t\t\t<li class="medium">' + art.medium.join(', ') + '</li>\n\t\t\t<li class="year">' + art.yearCreated + '</li>\n\t\t\t<li class="sale">' + sale + '</li>\n\t\t</ul>\n\t';
-}
-
-exports['default'] = ArtworkTemplate;
-module.exports = exports['default'];
-
-},{}],4:[function(require,module,exports){
+},{"backbone":7}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -88,47 +85,99 @@ var _moment = require('moment');
 
 var _moment2 = _interopRequireDefault(_moment);
 
+require('./ajax_setup');
+
+var _router = require('./router');
+
+var _router2 = _interopRequireDefault(_router);
+
+var appElement = (0, _jquery2['default'])('.app');
+
+var router = new _router2['default'](appElement);
+router.start();
+
+},{"./ajax_setup":1,"./router":5,"jquery":8,"moment":9,"underscore":10}],5:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+var _backbone = require('backbone');
+
+var _backbone2 = _interopRequireDefault(_backbone);
+
+var _jquery = require('jquery');
+
+var _jquery2 = _interopRequireDefault(_jquery);
+
 var _artwork_collection = require('./artwork_collection');
 
 var _artwork_collection2 = _interopRequireDefault(_artwork_collection);
 
-var _artwork_template = require('./artwork_template');
+var _viewsHome = require('./views/home');
 
-var _artwork_template2 = _interopRequireDefault(_artwork_template);
+var _viewsHome2 = _interopRequireDefault(_viewsHome);
 
-// Auto apply Application Id and REST api to headers
-// Using const assigns a variable that can't be changed later
-var APP_ID = '0VR7huIQPagbXx3vyqPROwxpSZgVYW4KvxHpI8Ml';
-var API_KEY = 'LDbcDCCHDGaBtep4EfndEuWHrLXLFccN8HT5cPKR';
+// import artTemplate from './views/art';
 
-_jquery2['default'].ajaxSetup({
-	headers: {
-		'X-Parse-Application-Id': APP_ID,
-		'X-Parse-REST-API-Key': API_KEY
+var Router = _backbone2['default'].Router.extend({
+
+	routes: {
+		'': 'home',
+		'art': 'showArt'
+	},
+
+	initialize: function initialize(appElement) {
+		this.$el = appElement;
+		this.art = new _artwork_collection2['default']();
+	},
+
+	showSpinner: function showSpinner() {
+		this.$el.html('<i class="fa fa-spinner fa-spin"></i>');
+	},
+
+	home: function home() {
+		console.log('show home page');
+		this.$el.html((0, _viewsHome2['default'])());
+	},
+
+	// showArt: function() {
+	// 	console.log('show art listing');
+	// 	this.showSpinner();
+	// 	this.art.fetch().then(function(){
+	// 		this.$el.html( artTemplate(this.todos.toJSON()) );
+	// 	}.bind(this));
+	// },
+
+	start: function start() {
+		_backbone2['default'].history.start();
 	}
+
 });
 
-var artwork = new _artwork_collection2['default']();
+exports['default'] = Router;
+module.exports = exports['default'];
 
-function renderArt() {
+},{"./artwork_collection":2,"./views/home":6,"backbone":7,"jquery":8}],6:[function(require,module,exports){
+"use strict";
 
-	var $div = (0, _jquery2['default'])('<div></div>');
+Object.defineProperty(exports, "__esModule", {
+	value: true
+});
+function homeTemplate(home) {
 
-	artwork.each(function (artpiece) {
-
-		var data = artpiece.toJSON();
-
-		var $ul = (0, _jquery2['default'])((0, _artwork_template2['default'])(data));
-
-		$div.append($ul);
-	});
-
-	(0, _jquery2['default'])('body').append($div);
+	return "\n\t\t<ul class=\"artwork\">\n\t\t\t<li class=\"artTitle\">" + home.title + "</li>\n\t\t</ul>\n\t";
 }
 
-artwork.fetch().then(renderArt);
+exports["default"] = homeTemplate;
 
-},{"./artwork_collection":1,"./artwork_template":3,"jquery":6,"moment":7,"underscore":8}],5:[function(require,module,exports){
+console.log(homeTemplate);
+module.exports = exports["default"];
+
+},{}],7:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -2027,7 +2076,7 @@ artwork.fetch().then(renderArt);
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":6,"underscore":8}],6:[function(require,module,exports){
+},{"jquery":8,"underscore":10}],8:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11239,7 +11288,7 @@ return jQuery;
 
 }));
 
-},{}],7:[function(require,module,exports){
+},{}],9:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -14435,7 +14484,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],8:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

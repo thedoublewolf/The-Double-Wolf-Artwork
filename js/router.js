@@ -1,9 +1,10 @@
 import Backbone from 'backbone';
+import $ from 'jquery';
 import ArtCollection from './artwork_collection';
 import homeTemplate from './views/home';
-import artTemplate from './views/art';
+// import artTemplate from './views/art';
 
-let Router = Bacbone.Router.extend({
+let Router = Backbone.Router.extend({
 
 	routes: {
 		''	  : 'home',
@@ -26,16 +27,18 @@ let Router = Bacbone.Router.extend({
 		this.$el.html(homeTemplate());
 	},
 
-	showArt: function() {
-		console.log('show art listing');
-		this.showSpinner();
-		this.art.fetch().then(function(){
-			this.$el.html( artTemplate(this.todos.toJSON()) );
-		}.bind(this));
-	},
+	// showArt: function() {
+	// 	console.log('show art listing');
+	// 	this.showSpinner();
+	// 	this.art.fetch().then(function(){
+	// 		this.$el.html( artTemplate(this.todos.toJSON()) );
+	// 	}.bind(this));
+	// },
 
 	start: function() {
 		Backbone.history.start();
 	}
 	
 });
+
+export default Router;
