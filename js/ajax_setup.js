@@ -1,11 +1,11 @@
 import $ from 'jquery';
 
-const APP_ID = 'mmoMgOQzCeRE8Ad4vmRkHMLYyTwEPPrAGXMEfDFm';
-const API_KEY = 'xvocUSdI55mrUV7m7fb0ylyXO2kQ6EML2mlBDEoY';
+const APP_ID = '0VR7huIQPagbXx3vyqPROwxpSZgVYW4KvxHpI8Ml';
+const API_KEY = 'LDbcDCCHDGaBtep4EfndEuWHrLXLFccN8HT5cPKR';
 
 $.ajaxSetup({
-  headers: {
-    'X-Parse-Application-Id': APP_ID,
-    'X-Parse-REST-API-Key': API_KEY
-  }
+	headers: {
+		'X-Parse-Application-Id': APP_ID,
+		'X-Parse-REST-API-Key': API_KEY
+	}
 });
