@@ -27,7 +27,7 @@ var ArtCollection = _backbone2['default'].Collection.extend({
 exports['default'] = ArtCollection;
 module.exports = exports['default'];
 
-},{"./artwork_model":2,"backbone":4}],2:[function(require,module,exports){
+},{"./artwork_model":2,"backbone":5}],2:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -50,7 +50,28 @@ var ArtModel = _backbone2['default'].Model.extend({
 exports['default'] = ArtModel;
 module.exports = exports['default'];
 
-},{"backbone":4}],3:[function(require,module,exports){
+},{"backbone":5}],3:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+function ArtworkTemplate(art) {
+
+	var sale = art.sold;
+	if (sale === true) {
+		sale = 'Sold';
+	} else {
+		sale = 'Available for Purchase';
+	}
+
+	return '\n\t\t<ul class="artwork">\n\t\t\t<li class="artTitle">' + art.title + '</li>\n\t\t\t<li class="medium">' + art.medium.join(', ') + '</li>\n\t\t\t<li class="year">' + art.yearCreated + '</li>\n\t\t\t<li class="sale">' + sale + '</li>\n\t\t</ul>\n\t';
+}
+
+exports['default'] = ArtworkTemplate;
+module.exports = exports['default'];
+
+},{}],4:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -71,6 +92,10 @@ var _artwork_collection = require('./artwork_collection');
 
 var _artwork_collection2 = _interopRequireDefault(_artwork_collection);
 
+var _artwork_template = require('./artwork_template');
+
+var _artwork_template2 = _interopRequireDefault(_artwork_template);
+
 // Auto apply Application Id and REST api to headers
 // Using const assigns a variable that can't be changed later
 var APP_ID = '0VR7huIQPagbXx3vyqPROwxpSZgVYW4KvxHpI8Ml';
@@ -85,9 +110,25 @@ _jquery2['default'].ajaxSetup({
 
 var artwork = new _artwork_collection2['default']();
 
-function renderArt() {}
+function renderArt() {
 
-},{"./artwork_collection":1,"jquery":5,"moment":6,"underscore":7}],4:[function(require,module,exports){
+	var $div = (0, _jquery2['default'])('<div></div>');
+
+	artwork.each(function (artpiece) {
+
+		var data = artpiece.toJSON();
+
+		var $ul = (0, _jquery2['default'])((0, _artwork_template2['default'])(data));
+
+		$div.append($ul);
+	});
+
+	(0, _jquery2['default'])('body').append($div);
+}
+
+artwork.fetch().then(renderArt);
+
+},{"./artwork_collection":1,"./artwork_template":3,"jquery":6,"moment":7,"underscore":8}],5:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -1986,7 +2027,7 @@ function renderArt() {}
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 
-},{"jquery":5,"underscore":7}],5:[function(require,module,exports){
+},{"jquery":6,"underscore":8}],6:[function(require,module,exports){
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -11198,7 +11239,7 @@ return jQuery;
 
 }));
 
-},{}],6:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 //! moment.js
 //! version : 2.10.6
 //! authors : Tim Wood, Iskren Chernev, Moment.js contributors
@@ -14394,7 +14435,7 @@ return jQuery;
     return _moment;
 
 }));
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 //     Underscore.js 1.8.3
 //     http://underscorejs.org
 //     (c) 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
@@ -15944,7 +15985,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[3])
+},{}]},{},[4])
 
 
 //# sourceMappingURL=main.js.map

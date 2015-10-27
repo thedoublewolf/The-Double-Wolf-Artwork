@@ -3,6 +3,7 @@ import _ from 'underscore';
 import moment from 'moment';
 
 import ArtCollection from './artwork_collection';
+import ArtworkTemplate from './artwork_template';
 
 // Auto apply Application Id and REST api to headers
 // Using const assigns a variable that can't be changed later
@@ -20,7 +21,22 @@ let artwork = new ArtCollection();
 
 function renderArt() {
 
+	let $div = $('<div></div>');
+
+	artwork.each(function(artpiece){
+
+		let data = artpiece.toJSON();
+
+		let $ul = $(ArtworkTemplate(data));
+
+		$div.append($ul);
+
+	});
+
+	$('body').append($div);
 }
+
+artwork.fetch().then(renderArt);
 
 
 
