@@ -1,43 +1,12 @@
 import $ from 'jquery';
 import _ from 'underscore';
 import moment from 'moment';
+import Router from './router';
+import './ajax_setup';
 
-import ArtCollection from './artwork_collection';
-import ArtworkTemplate from './artwork_template';
+var appElement = $('.app');
 
-// Auto apply Application Id and REST api to headers
-// Using const assigns a variable that can't be changed later
-const APP_ID = '0VR7huIQPagbXx3vyqPROwxpSZgVYW4KvxHpI8Ml';
-const API_KEY = 'LDbcDCCHDGaBtep4EfndEuWHrLXLFccN8HT5cPKR';
+var router = new Router(appElement);
+router.start();
 
-$.ajaxSetup({
-	headers: {
-		'X-Parse-Application-Id': APP_ID,
-		'X-Parse-REST-API-Key': API_KEY
-	}
-});
-
-let artwork = new ArtCollection();
-
-function renderArt() {
-
-	let $div = $('<div></div>');
-
-	artwork.each(function(artpiece){
-
-		let data = artpiece.toJSON();
-
-		let $ul = $(ArtworkTemplate(data));
-
-		$div.append($ul);
-
-	});
-
-	$('body').append($div);
-}
-
-artwork.fetch().then(renderArt);
-
-
-
-
+console.log('Hello, World');
