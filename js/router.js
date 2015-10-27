@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import $ from 'jquery';
 import ArtCollection from './artwork_collection';
-import homeTemplate from './views/home';
+import HomeTemplate from './home';
 // import artTemplate from './views/art';
 
 let Router = Backbone.Router.extend({
@@ -23,8 +23,9 @@ let Router = Backbone.Router.extend({
 	},
 
 	home: function() {
-		console.log('show home page');
-		this.$el.html(homeTemplate());
+		// this.showSpinner();
+		this.art.fetch();
+		this.$el.html(HomeTemplate(this.art));
 	},
 
 	// showArt: function() {

@@ -58,9 +58,8 @@ var _backbone = require('backbone');
 
 var _backbone2 = _interopRequireDefault(_backbone);
 
-// Create ArtModel constructor on Backbone Model to map to each individual record of artwork
 var ArtModel = _backbone2['default'].Model.extend({
-	// Specify where to get data, the root url to post to when creating a new record
+
 	urlRoot: 'https://api.parse.com/1/classes/Artwork',
 	idAttribute: 'objectId'
 });
@@ -69,6 +68,25 @@ exports['default'] = ArtModel;
 module.exports = exports['default'];
 
 },{"backbone":7}],4:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+	value: true
+});
+function processData(artCollection) {
+	console.log(artCollection);
+	return artCollection.each(function (item) {
+		return '\n\t\t\t<li class="artTitle">' + item.title + '</li>\n\t\t';
+	}).join('');
+}
+function HomeTemplate(data) {
+	return '\n\t\t\t<h2>List of Artwork</h2>\n\t\t\t\t<ul class="artwork">\n\t\t\t\t\t' + HomeTemplate(data) + '\n\t\t\t\t</ul>\n\t\t';
+}
+
+exports['default'] = HomeTemplate;
+module.exports = exports['default'];
+
+},{}],5:[function(require,module,exports){
 'use strict';
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
@@ -96,7 +114,7 @@ var appElement = (0, _jquery2['default'])('.app');
 var router = new _router2['default'](appElement);
 router.start();
 
-},{"./ajax_setup":1,"./router":5,"jquery":8,"moment":9,"underscore":10}],5:[function(require,module,exports){
+},{"./ajax_setup":1,"./router":6,"jquery":8,"moment":9,"underscore":10}],6:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, '__esModule', {
@@ -117,9 +135,9 @@ var _artwork_collection = require('./artwork_collection');
 
 var _artwork_collection2 = _interopRequireDefault(_artwork_collection);
 
-var _viewsHome = require('./views/home');
+var _home = require('./home');
 
-var _viewsHome2 = _interopRequireDefault(_viewsHome);
+var _home2 = _interopRequireDefault(_home);
 
 // import artTemplate from './views/art';
 
@@ -140,8 +158,9 @@ var Router = _backbone2['default'].Router.extend({
 	},
 
 	home: function home() {
-		console.log('show home page');
-		this.$el.html((0, _viewsHome2['default'])());
+		// this.showSpinner();
+		this.art.fetch();
+		this.$el.html((0, _home2['default'])(this.art));
 	},
 
 	// showArt: function() {
@@ -161,23 +180,7 @@ var Router = _backbone2['default'].Router.extend({
 exports['default'] = Router;
 module.exports = exports['default'];
 
-},{"./artwork_collection":2,"./views/home":6,"backbone":7,"jquery":8}],6:[function(require,module,exports){
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-	value: true
-});
-function homeTemplate(home) {
-
-	return "\n\t\t<ul class=\"artwork\">\n\t\t\t<li class=\"artTitle\">" + home.title + "</li>\n\t\t</ul>\n\t";
-}
-
-exports["default"] = homeTemplate;
-
-console.log(homeTemplate);
-module.exports = exports["default"];
-
-},{}],7:[function(require,module,exports){
+},{"./artwork_collection":2,"./home":4,"backbone":7,"jquery":8}],7:[function(require,module,exports){
 (function (global){
 //     Backbone.js 1.2.3
 
@@ -16034,7 +16037,7 @@ return jQuery;
   }
 }.call(this));
 
-},{}]},{},[4])
+},{}]},{},[5])
 
 
 //# sourceMappingURL=main.js.map
