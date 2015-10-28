@@ -1,6 +1,5 @@
-function processData(artCollection) {
-console.log(artCollection);
-	return artCollection.each(function(item) {
+function art(artCollection) {
+	return artCollection.map(function(item) {
 		return `
 			<li class="artTitle">${item.title}</li>
 		`
@@ -8,9 +7,9 @@ console.log(artCollection);
 }
 	function HomeTemplate(data) {
 		return `
-			<h2>List of Artwork</h2>
+			<h2 class="artworkHeader">List of Artwork</h2>
 				<ul class="artwork">
-					${HomeTemplate(data)}
+					${art(data)}
 				</ul>
 		`;
 }

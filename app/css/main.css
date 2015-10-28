@@ -2032,12 +2032,17 @@ h3 {
   margin-top: 0px;
   padding-left: 20px; }
 
+.artworkHeader {
+  margin-left: 20px; }
+
 .artwork {
   background: white;
   border: 1px solid grey;
   width: 300px;
   padding: 10px;
-  margin-left: 20px; }
+  margin-left: 20px;
+  height: 300px;
+  overflow: scroll; }
 
 .artTitle {
   font-weight: bold;
