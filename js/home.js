@@ -1,7 +1,7 @@
-function art(artCollection) {
-	return artCollection.map(function(item) {
+function art(data) {
+	return data.map(function(item) {
 		return `
-			<li class="artTitle">${item.title}</li>
+			<li class="artTitle" data-art-id="${item.objectId}">${item.title}</li>
 		`
 	}).join('');
 }

@@ -9,10 +9,10 @@ function art(artCollection) {
 		}
 
 		return `
-			<li class="art-item artTitle" artCollection-art-id="${item.objectId}">${item.title}</li>
-			<li class="art-item medium">${item.medium.join(', ')}</li>
-			<li class="art-item year">${item.yearCreated}</li>
-			<li class="art-item sale">${sale}</li>
+			<li class="artTitle">${item.title}</li>
+			<li class="medium">${item.medium.join(', ')}</li>
+			<li class="year">${item.yearCreated}</li>
+			<li class="sale">${sale}</li>
 		`
 	}).join('');
 }
