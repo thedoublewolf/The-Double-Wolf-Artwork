@@ -2044,6 +2044,13 @@ h3 {
   height: 300px;
   overflow: scroll; }
 
+.artworkImage {
+  background: white;
+  border: 1px solid grey;
+  width: 300px;
+  padding: 10px;
+  margin-left: 20px; }
+
 .artTitle {
   font-weight: bold;
   font-size: 1.1em; }
