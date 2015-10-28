@@ -2,7 +2,6 @@ import Backbone from 'backbone';
 import $ from 'jquery';
 import ArtCollection from './artwork_collection';
 import HomeTemplate from './home';
-// import ArtworkTemplate from './art';
 import SpecificArtworkTemplate from './specific_art';
 
 let Router = Backbone.Router.extend({
@@ -39,14 +38,6 @@ let Router = Backbone.Router.extend({
 			router.$el.html( HomeTemplate(router.art.toJSON()) );
 		}.bind(this));
 	},
-
-	// showArt: function() {
-	// 	this.showSpinner();
-	// 	let router = this;
-	// 	this.art.fetch().then(function(){
-	// 		router.$el.html( ArtworkTemplate(router.art.toJSON()) );
-	// 	}.bind(this));
-	// },
 
 	showSpecificArt: function(artId) {
 		let specificArt = this.art.get(artId);

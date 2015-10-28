@@ -2019,46 +2019,78 @@
   content: ""; }
 
 body {
-  background: #e2ebf3; }
+  background: white; }
 
-li {
-  list-style: none; }
+.container {
+  margin-left: 200px; }
 
-h1 {
-  padding-left: 20px;
-  margin-bottom: 5px; }
-
-h3 {
-  margin-top: 0px;
-  padding-left: 20px; }
+.doublewolf {
+  width: 150px;
+  position: fixed;
+  top: 10px;
+  left: 10px; }
 
 .artworkHeader {
   margin-left: 20px; }
 
-.artwork {
-  background: white;
-  border: 1px solid grey;
-  width: 300px;
-  padding: 10px;
-  margin-left: 20px;
-  height: 300px;
-  overflow: scroll; }
+h2 {
+  color: grey; }
 
-.artworkImage {
-  background: white;
-  border: 1px solid grey;
-  width: 300px;
+.artwork {
+  width: 200px;
   padding: 10px;
   margin-left: 20px; }
 
+.artworkbox {
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 25px;
+  margin-left: 25px; }
+
+.artImage {
+  margin-top: 25px; }
+
 .artTitle {
+  font-weight: 300;
+  font-size: 1em;
+  border: 1px solid #e3e3e3;
+  padding-bottom: 3px;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  width: 200px; }
+
+.artTitle:hover {
+  cursor: pointer;
+  border-bottom: 1px solid red; }
+
+.artTitle:active {
+  color: grey;
+  border-bottom: none; }
+
+.title {
   font-weight: bold;
-  font-size: 1.1em; }
+  font-size: 1em;
+  margin: 0; }
 
 .medium {
-  font-style: italic; }
+  font-style: italic;
+  margin: 0; }
+
+.year {
+  margin: 0; }
 
 .sale {
-  padding-top: 10px; }
+  padding-top: 10px;
+  margin: 0; }
+
+.back {
+  text-decoration: none; }
+  .back i {
+    font-size: 1.5em;
+    color: grey;
+    margin-top: 10px; }
+  .back i:hover {
+    color: red; }
 
 /*# sourceMappingURL=main.css.map */

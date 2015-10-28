@@ -75,11 +75,11 @@ Object.defineProperty(exports, '__esModule', {
 });
 function art(data) {
 	return data.map(function (item) {
-		return '\n\t\t\t<li class="artTitle" data-art-id="' + item.objectId + '">' + item.title + '</li>\n\t\t';
+		return '\n\t\t\t<p class="artTitle" data-art-id="' + item.objectId + '">' + item.title + '</p>\n\t\t';
 	}).join('');
 }
 function HomeTemplate(data) {
-	return '\n\t\t\t<h2 class="artworkHeader">List of Artwork</h2>\n\t\t\t\t<ul class="artwork">\n\t\t\t\t\t' + art(data) + '\n\t\t\t\t</ul>\n\t\t';
+	return '\n\t\t\t\t<div class="artwork">\n\t\t\t\t<h2>Artwork</h2>\n\t\t\t\t\t' + art(data) + '\n\t\t\t\t</div>\n\t\t';
 }
 
 exports['default'] = HomeTemplate;
@@ -138,8 +138,6 @@ var _home = require('./home');
 
 var _home2 = _interopRequireDefault(_home);
 
-// import ArtworkTemplate from './art';
-
 var _specific_art = require('./specific_art');
 
 var _specific_art2 = _interopRequireDefault(_specific_art);
@@ -176,14 +174,6 @@ var Router = _backbone2['default'].Router.extend({
 			router.$el.html((0, _home2['default'])(router.art.toJSON()));
 		}).bind(this));
 	},
-
-	// showArt: function() {
-	// 	this.showSpinner();
-	// 	let router = this;
-	// 	this.art.fetch().then(function(){
-	// 		router.$el.html( ArtworkTemplate(router.art.toJSON()) );
-	// 	}.bind(this));
-	// },
 
 	showSpecificArt: function showSpecificArt(artId) {
 		var _this = this;
@@ -227,7 +217,7 @@ function SpecificArtworkTemplate(data) {
 		sale = 'Available for Purchase';
 	}
 
-	return '\n\t\t<ul class="artwork">\n\t\t\t<li class="artTitle">' + data.title + '</li>\n\t\t\t<li class="medium">' + data.medium.join(', ') + '</li>\n\t\t\t<li class="year">' + data.yearCreated + '</li>\n\t\t\t<li class="sale">' + sale + '</li>\n\t\t</ul>\n\t';
+	return '\n\t\t<img class="artImage" src="' + data.imageUrl + '">\n\t\t<div class="artworkbox">\n\t\t\t<p class="title">' + data.title + '</p>\n\t\t\t<P class="medium">' + data.medium.join(', ') + '</p>\n\t\t\t<P class="year">' + data.yearCreated + '</p>\n\t\t\t<P class="sale">' + sale + '</p>\n\t\t\t<a href=\'\' class="back"><i class="fa fa-long-arrow-left"></i></a>\n\t\t</div>\n\t';
 }
 
 exports['default'] = SpecificArtworkTemplate;

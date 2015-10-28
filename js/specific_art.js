@@ -7,12 +7,14 @@ function SpecificArtworkTemplate(data) {
 		}
 
 	return `
-		<ul class="artwork">
-			<li class="artTitle">${data.title}</li>
-			<li class="medium">${data.medium.join(', ')}</li>
-			<li class="year">${data.yearCreated}</li>
-			<li class="sale">${sale}</li>
-		</ul>
+		<img class="artImage" src="${data.imageUrl}">
+		<div class="artworkbox">
+			<p class="title">${data.title}</p>
+			<P class="medium">${data.medium.join(', ')}</p>
+			<P class="year">${data.yearCreated}</p>
+			<P class="sale">${sale}</p>
+			<a href='' class="back"><i class="fa fa-long-arrow-left"></i></a>
+		</div>
 	`
 }
 
